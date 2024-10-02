@@ -1,0 +1,190 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>ARM SDR - Your resource for Windows on ARM64 SDR Binaries</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="/" class="logo"><strong>ARM SDR</strong> - Your resource for Windows on ARM64 SDR Binaries</a>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Welcome to armsdr.com!</h2>
+									</header>
+
+									<p>Armsdr.com is dedicated to tracking software support for Software Defined Radio (SDR) applications on Windows 11 for ARM64. The Windows for ARM64 architecture is an up-and-coming model for personal computing devices that finally breaks Windows away from the shackles of the x86-64 architecture. The most well-known of these devices are the Snapdragon X/Copilot+ line of PCs released in June 2024.</p>
+									<p>From my testing, Snapdragon X laptops are extremely good devices for SDR use due to their long battery life, great CPU performance, and low RF noise output. However, SDR software support is currently lacking. Most SDR programs compiled for 32/64-bit x86 architectures will run on Windows 11 24H2, thanks to Microsoft's new Prism emulator - but you can never beat native performance. Additionally, there is an apparent issue with latency in WinUSB that is worse on Snapdragon X laptops than their x64 counterparts. This results in sample drops with many SDRs. For more info on this, see the <a href='technical.html'>technical page</a>.</p>
+									<p>Since Windows on ARM64 is so new, most SDR programs do not have support for it. Below, you can find tables of popular SDR software, their Windows on ARM64 status, and unofficial ARM64 builds for a few projects without upstream support. <b>Note:</b> there are hundreds, if not thousands, of programs available for software defined radio. Just because your favorite SDR program is not listed here, does not mean it is or not supported on Windows for ARM64.</p>
+									<p>If you need help installing the WinUSB driver, <a href='drivers.html'>look here</a>. If you would like to notify me about an update, <a target='_blank' href='https://github.com/JVital2013/armsdr.com/issues'>open an issue on GitHub</a>. Only official binaries, and unofficial binaries built by myself, will be distributed here for security purposes.</p>
+
+									<hr class="minor" />
+
+									<h2>SDR Software with official Windows ARM64 support</h2>
+									<p>The following programs have official Windows ARM64 support in at least their nightly builds.</p>
+									<table>
+										<tr>
+											<th>Program Name</th>
+											<th>Supported Version</th>
+											<th>Download Link</th>
+										</tr>
+										<tr>
+											<td>SatDump</td>
+											<td>Nightly Builds only</td>
+											<td><a target='_blank' href='https://github.com/SatDump/SatDump/releases/tag/nightly'>Click Here</a></td>
+										</tr>
+									</table>
+									<div style='text-align: center;'><i>Last Updated: October 2, 2024</i></div>
+									
+									<hr class="minor" />
+
+									<h2>SDR Software with unofficial ARM64 builds</h2>
+									<p>The following programs do not yet have upstream Windows ARM64 support, but unofficial builds are available here. Most amateur SDR projects are open-source and are built in contributors' spare time, with hardware developers already have. Therefore, project maintainers often do not support bleeding edge computers. Furthermore, some developers may opt to <i>explicitly not support these devices</i>, for whatever reason. Of course, deciding not to support a device is a perfectly valid decision. All developers are in charge of their own projects. However, that does not change the fact that Windows on ARM64 devices exist, and are in the hands of real people. They deserve support today - and proper support can be had! 
+									</p>
+									<p>No matter the upstream release dependencies, all builds listed here only depend on Microsoft Visual C++ Redistributable for ARM64, available <a target='_blank' href='https://aka.ms/vs/17/release/vc_redist.arm64.exe'>here</a>.</p>
+									<table>
+										<tr>
+											<th>Program Name</th>
+											<th>Upstream Status</th>
+											<th>ARM64 Link</th>
+											<th>Notes</th>
+										</tr>
+										<tr>
+											<td>AirSpy Tools</td>
+											<td><a target='_blank' href='https://x.com/lambdaprog/status/1837527907633091021'>Initial Planning</a></td>
+											<td><a target='_blank' href='/downloads/airspy-tools-arm64.zip'>Click Here</a></td>
+											<td>Fully Functional</td>
+										</tr>
+										<tr>
+											<td>AirSpy HF Tools</td>
+											<td><a target='_blank' href='https://x.com/lambdaprog/status/1837527907633091021'>Initial Planning</a></td>
+											<td><a target='_blank' href='/downloads/airspyhf-tools-arm64.zip'>Click Here</a></td>
+											<td>Fully Functional</td>
+										</tr>
+										<tr>
+											<td>HackRF Tools</td>
+											<td><a target='_blank' href='https://github.com/greatscottgadgets/hackrf/pull/1483'>PR, waiting for libusb improvement</a></td>
+											<td><a target='_blank' href='/downloads/hackrf-tools-arm64.zip'>Click Here</a></td>
+											<td>Fully Functional</td>
+										</tr>
+										<tr>
+											<td>rtl_433</td>
+											<td>None</td>
+											<td><a target='_blank' href='/downloads/rtl_433-arm64.zip'>Click Here</a></td>
+											<td>RTL-SDR support only</td>
+										</tr>
+										<tr>
+											<td>RTL-SDR Tools</td>
+											<td>None</td>
+											<td><a target='_blank' href='/downloads/rtl-sdr-arm64.zip'>Click Here</a></td>
+											<td>Fully Functional</td>
+										</tr>
+										<tr>
+											<td>SDR++</td>
+											<td><a target='_blank' href='https://github.com/AlexandreRouma/SDRPlusPlus/issues/1483'>Developer declined support, for now</a></td>
+											<td><a target='_blank' href='/downloads/sdrpp_win_arm64_caeaa2d.zip'>Click Here</a></td>
+											<td>
+												Built October 2, 2024. Built with all default plugins, <u>except</u> for the following:
+												<ul style='margin-bottom: 0;'>
+													<li>M17 (decoder)
+													<li>LimeSDR
+													<li>Perseus SDR
+													<li>RFNM SDR
+													<li>FobosSDR
+												</ul>
+											</td>
+										</tr>
+									</table>
+									<div style='text-align: center;'><i>Last Updated: October 2, 2024</i></div>
+									
+									<hr class="minor" />
+									
+									<h2>SDR Software with no ARM64 Support</h2>
+									<p>The following programs do not have ARM64 support, and native builds are not currently available. However, they may still run under Windows 11's built-in x86-64 emulation. Even if they work, though: all programs without the patch to use RAW_IO <a href='technical.html'>described on the technical page</a> <b>will</b> drop samples from USB SDRs on Snapdragon X laptops, with the current Qualcomm drivers.</p>
+									<table>
+										<tr>
+											<th>Program Name</th>
+											<th>x86/64 Link</th>
+											<th>Notes</th>
+										</tr>
+										<tr>
+											<td>DSD+ Fastlane</td>
+											<td><a target='_blank' href='https://www.dsdplus.com/download-2/'>Click Here</a></td>
+											<td>Works; no news on Windows ARM64 support</td>
+										</tr>
+										<tr>
+											<td>SDR#/SpyServer</td>
+											<td><a target='_blank' href='https://airspy.com/download/'>Click Here</a></td>
+											<td>Works; <a target='_blank' href='https://x.com/lambdaprog/status/1837527907633091021'>Initial Planning on ARM64 builds</a></td>
+										</tr>
+										<tr>
+											<td>SDRangel</td>
+											<td><a target='_blank' href='https://github.com/f4exb/sdrangel/releases'>Click Here</a></td>
+											<td>Works; No news on Windows ARM64 support</td>
+										</tr>
+										<tr>
+											<td>SDR Console</td>
+											<td><a target='_blank' href='https://www.sdr-radio.com/download'>Click Here</a></td>
+											<td>Untested. No news on Windows ARM64 support</td>
+										</tr>
+									</table>
+									<div style='text-align: center;'><i>Last Updated: October 2, 2024</i></div>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="/">Home</a></li>
+										<li><a href="drivers.html">Driver Installation</a></li>
+										<li><a href="technical.html">Technical Details</a></li>
+									</ul>
+								</nav>
+							<!-- Section -->
+								<section style='text-align: center;'>
+									<img src='images/logo.png' style='width: 50%;' />
+								</section>
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; 2024 Jamie Vital. All rights reserved.<br />Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>

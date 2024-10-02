@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Driver Installation - armsdr.com</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="/" class="logo"><strong>ARM SDR</strong> - Your resource for Windows on ARM64 SDR Binaries</a>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Driver Installation</h2>
+									</header>
+
+									<p>While some SDRs are automatically recognized by Windows, many RTL-SDRs and similar SDRs still require manual driver installation. The most popular way to do this is with <a target='_blank' href='https://zadig.akeo.ie/'>Zadig</a>. On paper, Zadig does support ARM64 for WinUSB and libusb-win32 backends - but there's a catch (of course). <a target='_blank' href='https://github.com/pbatard/libwdi/issues/289'>As is documented in this issue</a>, Zadig cannot install drivers on Windows for ARM64 with Driver Signature Enforcement enabled. The general impression is that the bug is on the Windows side, but Pete Batard (Zadig/libwdi's developer) has opened the door to others who can help with the issue.
+									</p>
+									<p>To further complicate the issue, booting Snapdragon X laptops without Driver Signature Enforcement can be problematic. On my machines, it simply boots to recovery if I attempt to disable it through Advanced Startup. There is a solution through disabling secure boot and some bcdedit commands - but this method is insecure. If you can rely on WinUSB (and most SDRs can), you can avoid the issue altogether by using Device Manager itself, and a registry edit for the trickier SDRs.
+									</p>
+
+									<h3>Manual WinUSB Installation</h3>
+
+									<p style='margin-bottom: 1em;'><i>These directions are adapted from <a target='_blank' href='https://learn.microsoft.com/en-us/windows-hardware/drivers/usbcon/winusb-installation#installing-winusb-by-specifying-the-system-provided-device-class'>the official Microsoft instructions</a> for this specific use case.</i></p>
+									<ol>
+										<li>Plug in your SDR
+										<li>Right-click on the Start button and choose "Device Manager"
+											<br /><img src='/images/driver1.png' />
+										<li>You should find your SDR under "Other Devices". With some SDRs, there may be more than one device shown. These are known as Composite Devices.
+											<br /><img src='/images/driver2a.png' />
+										<li>If you are in this situation, double-click on one and go to Details &gt; Hardare Ids. For RTL-SDRs, you want to choose the one that ends in MI_00, as shown here. <b>Take note of this hardware ID for later</b>.
+											<br /><img src='/images/driver2b.png' />
+										<li>Whether your SDR shows as one device or two, go to the Driver tab and click Update Driver.
+											<br /><img src='/images/driver2c.png' />
+										<li>Choose "Browse my computer for drivers."
+											<br /><img src='/images/driver3.png' />
+										<li>Click "Let me pick from a list of available drivers on my computer."
+											<br /><img src='/images/driver4.png' />
+										<li>From the list, pick "Universal Serial Bus devices" and click Next.
+											<br /><img src='/images/driver5.png' />
+										<li>Click "WinUsb Device" on both the left and right, then click Next.
+											<br /><img src='/images/driver6.png' />
+										<li>Windows will complain that the driver is not recommended. Too bad - we know better. Click Yes.
+											<br /><img src='/images/driver7.png' />
+										<li>Windows will now inform you that the driver installation has succeded.
+									</ol>
+
+									<h3>Additional Steps for Composite Devices</h3>
+
+									<p>If you only had one unknown device in step 3 - that's all you need to do! You are ready to use your SDR in your favorite program. However, if you had a composite device, there are additional steps.
+									</p>
+									<ol start="12">
+										<li>Open PowerShell and type New-Guid. Save the generated GUID for later.
+											<br /><img src='/images/driver8.png' />
+										<li>Right-click on the start button and "Run"
+											<br /><img src='/images/driver9.png' />
+										<li>Type "regedit", then click OK
+											<br /><img src='/images/driver10.png' />
+										<li>In regedit, go to <u style="line-break: anywhere;">Computer\HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\USB</u> and look for the device ID you found in step 4 of the main installation instructions. Open the Device Parameters folder that is nested one under the Device ID.
+											<br /><img src='/images/driver11.png' />
+										<li>Right-click in the white space and go to New > String Value
+											<br /><img src='/images/driver12.png' />
+										<li>Name the value "DeviceInterfaceGUID"
+											<br /><img src='/images/driver13.png' />
+										<li>Double-click on your newly created registry key, and set it to the GUID you created in step 1, surrounded by {}
+											<br /><img src='/images/driver14.png' />
+										<li>Unplug and re-plug your SDR into the same port, and that's it! You should now be able to use your SDR in your favorite program.
+									</ol>
+								<img src='/images/driver15.jpg' style='max-width: 100%;' />
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="/">Home</a></li>
+										<li><a href="drivers.html">Driver Installation</a></li>
+										<li><a href="technical.html">Technical Details</a></li>
+									</ul>
+								</nav>
+							<!-- Section -->
+								<section style='text-align: center;'>
+									<img src='images/logo.png' style='width: 50%;' />
+								</section>
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; 2024 Jamie Vital. All rights reserved.<br />Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>

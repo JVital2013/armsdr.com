@@ -1,0 +1,96 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Technical info - armsdr.com</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="/" class="logo"><strong>ARM SDR</strong> - Your resource for Windows on ARM64 SDR Binaries</a>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h2>Technical Information - The RAW_IO Problem</h2>
+									</header>
+									<p>The biggest issue I have identified so far with using SDRs on Windows for ARM devices, is that all the computers I have tested so far suffer from sample drops at practically any samplerate when using libusb-based SDRs. While I do think there is something amiss with either the Windows build itself, or the Qualcomm drivers provided - there is something we can do about it. It is a 2-part fix:</p>
+									<ol>
+										<li>Patch LibUSB to support RAW_IO when using the WinUSB backend
+										<li>Patch SDR libs that utilize libusb with bulk transfers to use RAW_IO
+									</ol>
+									<h3>What is RAW_IO?</h3>
+									<p><a target='_blank' href='https://learn.microsoft.com/en-us/windows-hardware/drivers/usbcon/winusb-functions-for-pipe-policy-modification'>According to Microsoft,</a> RAW_IO is a pipe policy that affects how programs interact with WinUSB devices. "If enabled, transfers bypass queuing and error handling to boost performance for multiple read requests." Microsoft recommends its use when "performance is a priority and the application submits simultaneous read requests to the same endpoint." Well... that perfectly describes how many SDRs interface with your PC, including AirSpys, HackRFs, and RTL-SDR.</p>
+									<p>So, why do these libraries not utilize RAW_IO? Simple: libusb, the standardized library they all use for device access, does not support RAW_IO. At least, not yet. There is a <a target='_blank' href='https://github.com/libusb/libusb/pull/1512'>PR open with libusb</a> to implement a simple API that can check if RAW_IO is available, then enable it. The patch was originally written by martinling, a HackRF developer, and is being carried forward by HannesFranke-smartoptics.</p>
+									<p>In all the native releases available on this site, the RAW_IO-enabled version of libusb has been used. To use it, the new RAW_IO API is implemented into the AirSpy, AirSpy HF, HackRF, and RTL-SDR libraries. In my testing, there are no sample drops at all with these patches. Patched sources for libs used on this site:</p>
+									<ul>
+										<li><a target='_blank' href='https://github.com/JVital2013/airspyone_host/tree/rawio'>AirSpy</a>
+										<li><a target='_blank' href='https://github.com/JVital2013/airspyhf/tree/rawio'>AirSpy HF</a>
+										<li><a target='_blank' href='https://github.com/greatscottgadgets/hackrf/pull/1483'>HackRF</a>
+										<li><a target='_blank' href='https://github.com/JVital2013/librtlsdr/tree/rawio'>RTL-SDR</a>
+									</ul>
+									<h3>Is this a good idea?</h3>
+									<p>The question has been raised: is it a good idea to implement a RAW_IO within libusb since it's specific to Windows? I would argue yes, it is. It is unsafe for libusb to automatically use RAW_IO because transfers need to be specifically formatted to work properly. So, its use must be opt-in - a method the current PR utilizes. The RAW_IO policy exists in Windows, it helps with many types of devices, and Microsoft themselves recommend it in use-cases like SDRs. It makes little sense to not support it. I feel that the current libusb PR is a great way to handle it, because developers using libusb can opt-in to the API. It will simply do nothing if called on an unsupported platform, so there are no real losers with this change.</p>
+									<p>Additionally, I would make the case that the above mentioned USB libraries should implement RAW_IO once libusb officially supports it, even for their Intel-based builds. It has been well documented over the years that Windows SDR users drop more samples than Linux users on the same intel-based machine. It is likely that RAW_IO will solve these problems in specific situations - an opinion that is anecdotally confirmed by WinUSB developers across the internet. This change can cause no harm in SDR libraries since they always use well-formed bulk transfer requests, so it should be implemented because it is documented to only be beneficial.</p>
+									<hr class="major" />
+									
+									<h2>Volk Profile</h2>
+									<p>Volk is a common library used by SDR applications for SIMD operations. In its current state, Volk's NEON/NEONv8 kernels do not work on Windows for ARM64. There is a PR open <a target='blank' href='https://github.com/gnuradio/volk/pull/769'>here</a> that still needs a bit of work, but does successfully enable support for NEON on Windows - resulting in significantly better performance. The official SatDump build, and unofficial SDR++ ARM64 build, are built against this patched version of volk. In order to utilize the optimized kernels, you must run volk_profile on your computer.</p>
+									<p><a href='/downloads/volk-profile-arm64.zip'>Click here</a> to download it for Windows on ARM64.</p>
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="/">Home</a></li>
+										<li><a href="drivers.html">Driver Installation</a></li>
+										<li><a href="technical.html">Technical Details</a></li>
+									</ul>
+								</nav>
+							<!-- Section -->
+								<section style='text-align: center;'>
+									<img src='images/logo.png' style='width: 50%;' />
+								</section>
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; 2024 Jamie Vital. All rights reserved.<br />Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+	</body>
+</html>
