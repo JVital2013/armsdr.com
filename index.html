@@ -52,12 +52,17 @@
 											<td><a target='_blank' href='https://www.satdump.org/download'>Click Here</a></td>
 										</tr>
 										<tr>
+											<td>SDRPlay API</td>
+											<td>3.14 and greater</td>
+											<td><a target='_blank' href='https://www.sdrplay.com/api/'>Click Here</a></td>
+										</tr>
+										<tr>
 											<td>sdrtrunk</td>
-											<td>Nightlies</td>
+											<td>0.6.1 and greater</td>
 											<td><a target='_blank' href='https://github.com/DSheirer/sdrtrunk/releases'>Click Here</a></td>
 										</tr>
 									</table>
-									<div style='text-align: center;'><i>Last Updated: November 6, 2024</i></div>
+									<div style='text-align: center;'><i>Last Updated: December 11, 2024</i></div>
 									
 									<hr class="minor" />
 
@@ -122,7 +127,8 @@
 									<hr class="minor" />
 									
 									<h2>SDR Software with no ARM64 Support</h2>
-									<p>The following programs do not have ARM64 support, and native builds are not currently available. However, they may still run under Windows 11's built-in x86-64 emulation. Even if they work, though: all programs without the patch to use RAW_IO <a href='technical.html'>described on the technical page</a> <b>will</b> drop samples from USB SDRs on Snapdragon X laptops, with the current Qualcomm drivers.</p>
+									<p>The following programs do not have ARM64 support, and native builds are not currently available. However, they may still run under Windows 11's built-in x86-64 emulation.</p>
+									<p>Even if they work, though: all programs without the patch to use RAW_IO <a href='technical.html'>described on the technical page</a> <b>will</b> drop samples from libusb-based SDRs on Snapdragon X laptops, with the current Qualcomm drivers. An indication of "works" here only indicates that basic tests have been performed, and the software works for audio decoding. Your mileage may vary when it comes to sample drops.</p>
 									<table>
 										<tr>
 											<th>Program Name</th>
@@ -145,12 +151,26 @@
 											<td>Works; No news on Windows ARM64 support</td>
 										</tr>
 										<tr>
+											<td>SDRConnect</td>
+											<td><a target='_blank' href='https://www.sdrplay.com/sdrconnect/'>Click Here</a></td>
+											<td>
+												Installer fails. However, If you have an x64 PC available, install SDRConnect on that. Then, copy <code style='white-space: nowrap;'>C:\Program Files\SDRplay</code> to your new Windows 11 ARM64 computer in the same location. Finally, create a shortcut on your desktop to C:\Program Files\SDRplay\SDRconnect\SDRconnect.exe and it will run normally. Thanks <a target='_blank' href='https://github.com/JVital2013/armsdr.com/issues/2'>JonInGa</a> for the tip!
+												<br /><br />
+												No news on Windows ARM64 support
+											</td>
+										</tr>
+										<tr>
 											<td>SDR Console</td>
 											<td><a target='_blank' href='https://www.sdr-radio.com/download'>Click Here</a></td>
 											<td>Works; No news on Windows ARM64 support</td>
 										</tr>
+										<tr>
+											<td>SDRuno</td>
+											<td><a target='_blank' href='https://www.sdrplay.com/sdruno/'>Click Here</a></td>
+											<td>Works; No news on Windows ARM64 support</td>
+										</tr>
 									</table>
-									<div style='text-align: center;'><i>Last Updated: November 27, 2024</i></div>
+									<div style='text-align: center;'><i>Last Updated: December 11, 2024</i></div>
 								</section>
 
 						</div>
